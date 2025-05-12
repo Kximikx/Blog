@@ -5,7 +5,7 @@ from selenium.webdriver.common.keys import Keys
 import time
 from selenium.webdriver.chrome.service import Service
 
-service = Service(r'D:\Робота\_ФРЕЙМВОРКИ PYTHON\2024-25\2 семестр\проекти\chromedriver-win64\chromedriver.exe')
+service = Service(r'C:\Users\Yura\Desktop\Brazzers\3 Курс\2СЕм\Фрейм\chrome-win64\chromedriver.exe')
 
 class BlogE2ETest(StaticLiveServerTestCase):
     @classmethod

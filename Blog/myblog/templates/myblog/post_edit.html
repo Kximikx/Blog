@@ -1,0 +1,44 @@
+{% extends "myblog/base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Новий допис</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            {{ form.title.label_tag }}
+            {{ form.title }}
+        </div>
+
+        <div class="form-group">
+            {{ form.text.label_tag }}
+            {{ form.text }}
+        </div>
+
+        {% if form.image %}
+        <div class="form-group">
+            {{ form.image.label_tag }}
+            {{ form.image }}
+        </div>
+        {% endif %}
+
+        {% if form.pdf %}
+        <div class="form-group">
+            {{ form.pdf.label_tag }}
+            {{ form.pdf }}
+        </div>
+        {% endif %}
+
+        <button type="submit" class="btn-submit">Зберегти</button>
+    </form>
+
+    {% if post %}
+    <form method="POST" action="{% url 'post_delete' pk=post.pk %}" style="margin-top: 20px;">
+        {% csrf_token %}
+        <button type="submit" class="btn-submit" style="background-color: darkred;">Видалити пост</button>
+    </form>
+    {% endif %}
+</div>
+{% endblock %}

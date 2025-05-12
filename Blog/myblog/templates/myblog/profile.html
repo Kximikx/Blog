@@ -1,0 +1,25 @@
+{% extends "myblog/base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Особистий кабінет</h2>
+    <h3>Ваші дописи</h3>
+    {% if posts %}
+        {% for post in posts %}
+            <div class="post mb-4 p-3 border rounded">
+                <h3>{{ post.title }}</h3>
+                <p>{{ post.text|linebreaksbr }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>У вас немає жодного допису.</p>
+    {% endif %}
+
+    <h3>Змінити пароль</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Змінити пароль</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "myblog/base.html" %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Реєстрація</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.username.label_tag }}
+            {{ form.username }}
+        </div>
+        <div class="form-group">
+            {{ form.email.label_tag }}
+            {{ form.email }}
+        </div>
+        <div class="form-group">
+            {{ form.password1.label_tag }}
+            {{ form.password1 }}
+        </div>
+        <div class="form-group">
+            {{ form.password2.label_tag }}
+            {{ form.password2 }}
+        </div>
+        <button type="submit" class="btn-submit">Зареєструватися</button>
+    </form>
+</div>
+{% endblock %}

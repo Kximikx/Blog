@@ -1,0 +1,66 @@
+{% extends "myblog/base.html" %}
+
+{% block title %}Мій блог{% endblock title %}
+
+{% block content %}
+<form method="get" class="filter-form">
+    <div class="search-row">
+      <input type="text" name="q" placeholder="Пошук..." value="{{ request.GET.q }}">
+      <button type="submit" class="btn btn-search">Знайти</button>
+    </div>
+  
+    <div class="filter-row">
+      <select name="author">
+        <option value="">Усі автори</option>
+        {% for user in users %}
+          <option value="{{ user.username }}" {% if request.GET.author == user.username %}selected{% endif %}>
+            {{ user.username }}
+          </option>
+        {% endfor %}
+      </select>
+  
+      <input type="date" name="start_date" value="{{ request.GET.start_date }}">
+      <input type="date" name="end_date" value="{{ request.GET.end_date }}">
+  
+      <button type="submit" class="btn btn-filter">Фільтрувати</button>
+    </div>
+</form>
+        
+<div class="container my-4">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            {% if page %}
+                {% for post in page %}
+                    <div class="post mb-4 p-3 border rounded">
+                        <div class="date text-muted">
+                            <p>Опубліковано: {{ post.published_date }}</p>
+                        </div>
+                        <h2>
+                            <a href="{% url 'post_detail' pk=post.pk %}" class="text-decoration-none">
+                                {{ post.title }}
+                            </a>
+                        </h2>
+                        {% if post.pdf %}
+                            <a href="{{ post.pdf.url }}" download>Завантажити PDF</a>
+                        {% endif %}
+                        <div class="date">
+                            {% if post.image %}
+                                <img src="{{ post.image.url }}" alt="Зображення допису" style="width: 300px; height: 200px;">
+                            {% endif %}
+                        </div>
+                        <p>{{ post.text|linebreaksbr }}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="text-center">Немає доступних постів.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 mx-auto text-center mt-4">
+            {% include 'myblog/pagination.html' %}
+        </div>
+    </div>
+</div>
+{% endblock %}
